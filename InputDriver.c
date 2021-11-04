@@ -16,7 +16,7 @@ int InputMain(void){
 		int tempVal = -1;
 		if(oldVal != valIndex){
 				for(int i = 0; i < 101; i++){
-					tempVal = values[i];
+					tempVal = values[i]; // see what values are there
 				}
 		}
 		oldVal = valIndex;
@@ -25,5 +25,7 @@ int InputMain(void){
 	
 //2
 // Test Streaming to Encoder
-int StreamMain(void){}
-	
+int StreamMain(void){
+	//Don't really need this one beccause we are going to extern the values array
+	return 1;
+}
