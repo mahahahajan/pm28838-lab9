@@ -11,3 +11,4 @@
 *.PulkWindows
 *.lnp
 *.lst
+.DS_Store
