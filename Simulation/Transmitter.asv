@@ -34,12 +34,11 @@ test_message = dec2bin(double(char(test_message)), 8);
 [num_chars, bits] = size(test_message);
 bitstream = test_message(1:(num_chars*bits))
 
-figure;
-matched_wave = zeros(length(sinusoid));
-wave=str2num(test_message(:))
-T=1/(1/2); % 0.5 Hz rate gives each bit 2 seconds of play time
+wave=str2num(test_message(:));
+T=0.5; % 2Hz rate gives each bit 
 t=0:T:(numel(wave)-1)*T;
-stairs(t,wave,'blue','linewidth',1);
+stairs(t,wave,'r','linewidth',2);
+grid on;
 
 
     
