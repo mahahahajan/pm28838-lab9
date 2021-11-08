@@ -8,6 +8,7 @@ GEN_OPTS__FLAG :=
 GEN_CMDS__FLAG := 
 
 ORDERED_OBJS += \
+"./ADCSWTrigger.obj" \
 "./AudioDriver.obj" \
 "./CortexM.obj" \
 "./DAC.obj" \
@@ -166,8 +167,8 @@ Lab-9.hex: $(EXE_OUTPUTS)
 # Other Targets
 clean:
 	-$(RM) $(BIN_OUTPUTS__QUOTED)$(EXE_OUTPUTS__QUOTED)
-	-$(RM) "AudioDriver.obj" "CortexM.obj" "DAC.obj" "Decoder.obj" "InputDriver.obj" "Music.obj" "PLL.obj" "SwitchDriver.obj" "Timer2.obj" "Timer3.obj" "TimerDriver.obj" "Transmitter.obj" "UART0int.obj" "main.obj" "tm4c123gh6pm_startup_ccs.obj" 
-	-$(RM) "AudioDriver.d" "CortexM.d" "DAC.d" "Decoder.d" "InputDriver.d" "Music.d" "PLL.d" "SwitchDriver.d" "Timer2.d" "Timer3.d" "TimerDriver.d" "Transmitter.d" "UART0int.d" "main.d" "tm4c123gh6pm_startup_ccs.d" 
+	-$(RM) "ADCSWTrigger.obj" "AudioDriver.obj" "CortexM.obj" "DAC.obj" "Decoder.obj" "InputDriver.obj" "Music.obj" "PLL.obj" "SwitchDriver.obj" "Timer2.obj" "Timer3.obj" "TimerDriver.obj" "Transmitter.obj" "UART0int.obj" "main.obj" "tm4c123gh6pm_startup_ccs.obj" 
+	-$(RM) "ADCSWTrigger.d" "AudioDriver.d" "CortexM.d" "DAC.d" "Decoder.d" "InputDriver.d" "Music.d" "PLL.d" "SwitchDriver.d" "Timer2.d" "Timer3.d" "TimerDriver.d" "Transmitter.d" "UART0int.d" "main.d" "tm4c123gh6pm_startup_ccs.d" 
 	-@echo 'Finished clean'
 	-@echo ' '
 

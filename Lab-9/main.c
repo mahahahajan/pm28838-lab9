@@ -10,6 +10,11 @@
 
 AddPointerFifo(Raw, SIZE, char, SUCCESS, FAIL)
 char recovered_String[SIZE];
+char recovered_Word[20];
+int read_words = 0;
+char string[20];  // global to assist in debugging
+
+
 
 //---------------------OutCRLF---------------------
 // Output a CR,LF to UART to go to a new line
@@ -31,6 +36,36 @@ void printBuffer(void){
     }
 }
 
+void printWord(void){
+    int end_flag = 1;
+    while(end_flag){
+        static int i = 0;
+        char read_char = 0;
+        RawFifo_Get(&read_char);
+        UART_OutChar(read_char);
+        recovered_Word[i] = read_char;
+        i++;
+        if(read_char == 0){
+            end_flag = 0;
+        }
+    }
+}
+
+void readUART(void){
+    UART_OutString("InString: ");
+    UART_InString(string,19);
+
+    // Store string in FIFO buffer
+    int j = 0;
+    while(string[j] != 0){
+        RawFifo_Put(string[j]);
+        j++;
+    }
+    RawFifo_Put(0);
+    read_words++;
+    OutCRLF();
+}
+
 //debug code
 int main(void){
   PLL_Init(Bus80MHz);       // set system clock to 50 MHz
@@ -38,30 +73,14 @@ int main(void){
   UART_OutString(" UART0 is ready to use!"); OutCRLF();
   EnableInterrupts();       // Enable interrupts
   RawFifo_Init();
-  int read_words = 0;
 
-  char string[20];  // global to assist in debugging
+  // Initialize a timer that sends 1 packet to DAC.
 
   while(1){
-      if(read_words < 5){
-
-          UART_OutString("InString: ");
-          UART_InString(string,19);
-
-          // Store string in FIFO buffer
-          int j = 0;
-          while(string[j] != 0){
-              int check = RawFifo_Put(string[j]);
-              j++;
-              UART_OutUDec(check);
-          }
-          RawFifo_Put(0);
-          read_words++;
-          OutCRLF();
-
-
+      if(RawFifo_Size() < SIZE){
+          readUART();
       } else {
-          printBuffer();
+          UART_OutString("The UART Buffer is full, please wait \n");
       }
   }
 

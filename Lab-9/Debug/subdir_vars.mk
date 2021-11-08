@@ -7,6 +7,7 @@ CMD_SRCS += \
 ../tm4c123gh6pm.cmd 
 
 C_SRCS += \
+../ADCSWTrigger.c \
 ../AudioDriver.c \
 ../CortexM.c \
 ../DAC.c \
@@ -24,6 +25,7 @@ C_SRCS += \
 ../tm4c123gh6pm_startup_ccs.c 
 
 C_DEPS += \
+./ADCSWTrigger.d \
 ./AudioDriver.d \
 ./CortexM.d \
 ./DAC.d \
@@ -41,6 +43,7 @@ C_DEPS += \
 ./tm4c123gh6pm_startup_ccs.d 
 
 OBJS += \
+./ADCSWTrigger.obj \
 ./AudioDriver.obj \
 ./CortexM.obj \
 ./DAC.obj \
@@ -58,6 +61,7 @@ OBJS += \
 ./tm4c123gh6pm_startup_ccs.obj 
 
 OBJS__QUOTED += \
+"ADCSWTrigger.obj" \
 "AudioDriver.obj" \
 "CortexM.obj" \
 "DAC.obj" \
@@ -75,6 +79,7 @@ OBJS__QUOTED += \
 "tm4c123gh6pm_startup_ccs.obj" 
 
 C_DEPS__QUOTED += \
+"ADCSWTrigger.d" \
 "AudioDriver.d" \
 "CortexM.d" \
 "DAC.d" \
@@ -92,6 +97,7 @@ C_DEPS__QUOTED += \
 "tm4c123gh6pm_startup_ccs.d" 
 
 C_SRCS__QUOTED += \
+"../ADCSWTrigger.c" \
 "../AudioDriver.c" \
 "../CortexM.c" \
 "../DAC.c" \
