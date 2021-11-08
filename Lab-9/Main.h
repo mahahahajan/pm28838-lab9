@@ -11,5 +11,6 @@
 #include "../inc/LaunchPad.h"
 
 #include "TimerDriver.h"
+#include "Transmitter.h"
 
 #endif

@@ -47,6 +47,8 @@ void printWord(void){
     }
 }
 
+uint16_t fifo_size = 0;
+
 void readUART(void){
     UART_OutString("InString: ");
     UART_InString(string,19);
@@ -55,17 +57,20 @@ void readUART(void){
     int j = 0;
     while(string[j] != 0){
         RawFifo_Put(string[j]);
+        fifo_size++;
         j++;
     }
-    RawFifo_Put(0);
+    //RawFifo_Put(0);
+    //fifo_size++;
     read_words++;
     OutCRLF();
 }
 
 void Transmitter_output_fifo_task(void) {
-    if (RawFifo_Size() > 0) {
+    if (fifo_size > 0) {
         char output_char = 0;
         RawFifo_Get(&output_char);
+        fifo_size--;
         Transmitter_set_outchar_vector((uint8_t) output_char);
     }
 }
