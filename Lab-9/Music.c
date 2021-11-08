@@ -42,14 +42,14 @@ void Music_Init(void) {
 volatile long currDuration = 0;
 volatile uint16_t I = 0;
 
-void Timer0A_Handler(void){
-  TIMER0_ICR_R = TIMER_ICR_TATOCINT; // acknowledge
-  //currDuration ++; // note has been played for another duration?
-	I = song.instrumentPointer;
-  DAC_Out(SinWave[I]);
-	song.instrumentPointer++;
-	TIMER0_TAILR_R = song.notes[song.notePointer].currSound;
-}
+//void Timer0A_Handler(void){
+//  TIMER0_ICR_R = TIMER_ICR_TATOCINT; // acknowledge
+//  //currDuration ++; // note has been played for another duration?
+//	I = song.instrumentPointer;
+//  DAC_Out(SinWave[I]);
+//	song.instrumentPointer++;
+//	TIMER0_TAILR_R = song.notes[song.notePointer].currSound;
+//}
 
 void Play(void) { //basically reenable the interrupt and tell it to output to dac 
 	Timer0A_Enable();
