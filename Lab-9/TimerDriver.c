@@ -1,7 +1,6 @@
 /* Timer Driver Module */
 
 #include "TimerDriver.h"
-#include "Music.h"
 
 
 /* constants */
@@ -16,13 +15,11 @@
 
 /* module fields */
 
-volatile uint32_t tone_id = 1;
-volatile uint32_t note_counter = 0;
 
 
 /* module internal functions */
 //TODO: Check if this is right -- this is wrong im 99% sure 
-const uint32_t audio_master_freq = sxth;
+//const uint32_t audio_master_freq = sxth;
 
 void Timer0_Init(void){
   volatile uint32_t delay;
@@ -87,7 +84,7 @@ void Timer1A_Handler(void){
 	
   TIMER1_ICR_R = TIMER_ICR_TATOCINT;// acknowledge TIMER1A timeout
 	
-	Switches_Loop();
+//	Switches_Loop();
 	
 }
 
@@ -95,15 +92,15 @@ void Timer1A_Handler(void){
 /* module external methods */
 
 void Timer_Init(void){
-	Timer0_Init();
-	Timer1_Init();
+//	Timer0_Init();
+//	Timer1_Init();
 }
 
-void Timer_InitTask2(void(*task2)(void)) {
-	Timer2_Init(task2, 800000); 
+void Timer_InitTask2(void(*task2)(void), long period) {
+	Timer2_Init(task2, period);
 }
 
-void Timer_InitTask3(void(*task3)(void)) {
-  Timer3_Init(task3, 40000000); 
+void Timer_InitTask3(void(*task3)(void), long period) {
+    Timer3_Init(task3, period);  // 40000000
 }
 

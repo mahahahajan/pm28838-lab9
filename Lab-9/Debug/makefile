@@ -8,22 +8,20 @@ GEN_OPTS__FLAG :=
 GEN_CMDS__FLAG := 
 
 ORDERED_OBJS += \
-"./ADCSWTrigger.obj" \
 "./AudioDriver.obj" \
-"./CortexM.obj" \
 "./DAC.obj" \
 "./Decoder.obj" \
 "./InputDriver.obj" \
-"./Music.obj" \
-"./PLL.obj" \
-"./SwitchDriver.obj" \
-"./Timer2.obj" \
-"./Timer3.obj" \
+"./Main.obj" \
 "./TimerDriver.obj" \
 "./Transmitter.obj" \
 "./UART0int.obj" \
-"./main.obj" \
 "./tm4c123gh6pm_startup_ccs.obj" \
+"./inc/ADCSWTrigger.obj" \
+"./inc/CortexM.obj" \
+"./inc/PLL.obj" \
+"./inc/Timer2.obj" \
+"./inc/Timer3.obj" \
 "../tm4c123gh6pm.cmd" \
 $(GEN_CMDS__FLAG) \
 -llibc.a \
@@ -36,7 +34,9 @@ RMDIR := rm -rf
 # All of the sources participating in the build are defined here
 -include sources.mk
 -include subdir_vars.mk
+-include inc/subdir_vars.mk
 -include subdir_rules.mk
+-include inc/subdir_rules.mk
 -include objects.mk
 
 ifneq ($(MAKECMDGOALS),clean)
@@ -167,8 +167,8 @@ Lab-9.hex: $(EXE_OUTPUTS)
 # Other Targets
 clean:
 	-$(RM) $(BIN_OUTPUTS__QUOTED)$(EXE_OUTPUTS__QUOTED)
-	-$(RM) "ADCSWTrigger.obj" "AudioDriver.obj" "CortexM.obj" "DAC.obj" "Decoder.obj" "InputDriver.obj" "Music.obj" "PLL.obj" "SwitchDriver.obj" "Timer2.obj" "Timer3.obj" "TimerDriver.obj" "Transmitter.obj" "UART0int.obj" "main.obj" "tm4c123gh6pm_startup_ccs.obj" 
-	-$(RM) "ADCSWTrigger.d" "AudioDriver.d" "CortexM.d" "DAC.d" "Decoder.d" "InputDriver.d" "Music.d" "PLL.d" "SwitchDriver.d" "Timer2.d" "Timer3.d" "TimerDriver.d" "Transmitter.d" "UART0int.d" "main.d" "tm4c123gh6pm_startup_ccs.d" 
+	-$(RM) "AudioDriver.obj" "DAC.obj" "Decoder.obj" "InputDriver.obj" "Main.obj" "TimerDriver.obj" "Transmitter.obj" "UART0int.obj" "tm4c123gh6pm_startup_ccs.obj" "inc/ADCSWTrigger.obj" "inc/CortexM.obj" "inc/PLL.obj" "inc/Timer2.obj" "inc/Timer3.obj" 
+	-$(RM) "AudioDriver.d" "DAC.d" "Decoder.d" "InputDriver.d" "Main.d" "TimerDriver.d" "Transmitter.d" "UART0int.d" "tm4c123gh6pm_startup_ccs.d" "inc/ADCSWTrigger.d" "inc/CortexM.d" "inc/PLL.d" "inc/Timer2.d" "inc/Timer3.d" 
 	-@echo 'Finished clean'
 	-@echo ' '
 

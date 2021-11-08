@@ -1,8 +1,4 @@
-#include <stdint.h>
-#include "../inc/PLL.h"
-#include "../inc/CortexM.h"
-#include "../inc/UART0int.h"
-#include "../inc/FIFO.h"
+#include "Main.h"
 
 #define SIZE 1024
 #define SUCCESS 1
@@ -66,6 +62,14 @@ void readUART(void){
     OutCRLF();
 }
 
+void Transmitter_output_fifo_task(void) {
+    if (RawFifo_Size() > 0) {
+        char output_char = 0;
+        RawFifo_Get(&output_char);
+        Transmitter_set_outchar_vector((uint8_t) output_char);
+    }
+}
+
 //debug code
 int main(void){
   PLL_Init(Bus80MHz);       // set system clock to 50 MHz
@@ -75,6 +79,7 @@ int main(void){
   RawFifo_Init();
 
   // Initialize a timer that sends 1 packet to DAC.
+  Transmitter_Init(&Transmitter_output_fifo_task);
 
   while(1){
       if(RawFifo_Size() < SIZE){

@@ -1,5 +1,4 @@
 #include "InputDriver.h"
-#include "SwitchDriver.h"
 #include <stdio.h>
 
 uint16_t values[100];
@@ -10,7 +9,7 @@ uint8_t valIndex = -1;
 //Test Input Task (use Switch Driver? or Keyboard)
 int InputMain(void){
 	valIndex = 0;
-	Switches_Init();
+//	Switches_Init();
 	uint8_t oldVal = 0;
 	// TODO: Modify Switch Driver to return certain values to shared array / fifo queue
 	/*

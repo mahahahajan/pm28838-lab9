@@ -62,6 +62,7 @@ int decoderMain(void) {
     return 1;
 }
 
+/*
 void Timer0A_Handler(void){
 
   TIMER0_ICR_R = TIMER_ICR_TATOCINT;    // acknowledge timer0A timeout
@@ -69,4 +70,6 @@ void Timer0A_Handler(void){
   ModFifo_Put( value ); // everytime we hit this handler, put the new value into the fifo
   times++;
 }
+
+*/
 
