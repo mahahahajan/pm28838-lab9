@@ -20,7 +20,7 @@ const unsigned short SinWave[64] = {
 void (*Transmitter_fifo_task)(void);
 
 void Transmitter_Init(void(*fifo_task)(void)) {
-    DAC_Init(DAC_OUT_STEADY);
+    DAC_Init(DAC_OUT_LOW);
     Transmitter_fifo_task = fifo_task;
     currDuration = 0;
     I = 0;
@@ -28,7 +28,7 @@ void Transmitter_Init(void(*fifo_task)(void)) {
     outchar_frame_ptr = 0;
     outchar_frame_bit = 0;
     outchar_frame = 0;
-    Timer_InitTask2(&Transmitter_output_handler, HIGH_FREQ);
+    Timer_InitTask2(&Transmitter_output_handler, HIGH_PERIOD);
 }
 
 // parity utility function
@@ -48,7 +48,7 @@ void Transmitter_output_handler(void) {
           DAC_Out(SinWave[I]);
           I++;
           if (I >= 64) I = 0;
-      } else DAC_Out(DAC_OUT_STEADY);
+      } else DAC_Out(DAC_OUT_LOW);
       currDuration--;
   } else {
       // currDuration = 0 --> steady state
@@ -59,7 +59,7 @@ void Transmitter_output_handler(void) {
           outchar_frame_ptr--;
       } else {
           // outchar_frame_ptr = 0 --> steady state
-          DAC_Out(DAC_OUT_STEADY);
+          DAC_Out(DAC_OUT_LOW);
           Transmitter_fifo_task();
       }
   }

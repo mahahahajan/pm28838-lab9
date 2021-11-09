@@ -9,13 +9,11 @@
 #include "DAC.h"
 
 #define BUS 80000000
-#define DEFAULT_LENGTH 20000
+#define DEFAULT_LENGTH 3000
 
-#define BPM 120
+#define HIGH_PERIOD 1600
 
-#define HIGH_FREQ 700
-
-#define DAC_OUT_STEADY 0
+#define DAC_OUT_LOW 0
 
 void Transmitter_Init(void(*fifo_task)(void));
 

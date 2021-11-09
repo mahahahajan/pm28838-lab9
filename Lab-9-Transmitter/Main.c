@@ -16,13 +16,13 @@ char string[20];  // global to assist in debugging
 // Output a CR,LF to UART to go to a new line
 // Input: none
 // Output: none
-void OutCRLF(void){
+void OutCRLF(void) {
   UART_OutChar(CR);
   UART_OutChar(LF);
 }
 
-void printBuffer(void){
-    while(RawFifo_Size() != 0){
+void printBuffer(void) {
+    while(RawFifo_Size() != 0) {
         static int i = 0;
         char read_char = 0;
         RawFifo_Get(&read_char);
@@ -32,16 +32,16 @@ void printBuffer(void){
     }
 }
 
-void printWord(void){
+void printWord(void) {
     int end_flag = 1;
-    while(end_flag){
+    while(end_flag) {
         static int i = 0;
         char read_char = 0;
         RawFifo_Get(&read_char);
         UART_OutChar(read_char);
         recovered_Word[i] = read_char;
         i++;
-        if(read_char == 0){
+        if(read_char == 0) {
             end_flag = 0;
         }
     }
@@ -49,13 +49,13 @@ void printWord(void){
 
 uint16_t fifo_size = 0;
 
-void readUART(void){
+void readUART(void) {
     UART_OutString("InString: ");
     UART_InString(string,19);
 
     // Store string in FIFO buffer
     int j = 0;
-    while(string[j] != 0){
+    while(string[j] != 0) {
         RawFifo_Put(string[j]);
         fifo_size++;
         j++;
@@ -76,8 +76,9 @@ void Transmitter_output_fifo_task(void) {
 }
 
 //debug code
-int main(void){
+int main(void) {
   PLL_Init(Bus80MHz);       // set system clock to 50 MHz
+  DisableInterrupts();
   UART_Init();              // initialize UART
   UART_OutString(" UART0 is ready to use!"); OutCRLF();
   EnableInterrupts();       // Enable interrupts
@@ -85,9 +86,10 @@ int main(void){
 
   // Initialize a timer that sends 1 packet to DAC.
   Transmitter_Init(&Transmitter_output_fifo_task);
+  EnableInterrupts();       // Enable interrupts
 
-  while(1){
-      if(RawFifo_Size() < SIZE){
+  while(1) {
+      if(RawFifo_Size() < SIZE) {
           readUART();
       } else {
           UART_OutString("The UART Buffer is full, please wait \n");
