@@ -4,12 +4,22 @@
 #define SUCCESS 1
 #define FAIL 0
 
-AddPointerFifo(Raw, SIZE, char, SUCCESS, FAIL)
+AddPointerFifo(Mod, SIZE, uint32_t, SUCCESS, FAIL)
 char recovered_String[SIZE];
-char recovered_Word[20];
-int read_words = 0;
-char string[20];  // global to assist in debugging
 
+int times = 0;
+
+
+void printModBuffer(void){
+    while(ModFifo_Size() != 0){
+        static int i = 0;
+        uint32_t read_val = 0;
+        ModFifo_Get(&read_val);
+        UART_OutChar(read_val);
+        recovered_String[i] = read_val;
+        i++;
+    }
+}
 
 
 //---------------------OutCRLF---------------------
@@ -21,73 +31,37 @@ void OutCRLF(void){
   UART_OutChar(LF);
 }
 
-void printBuffer(void){
-    while(RawFifo_Size() != 0){
-        static int i = 0;
-        char read_char = 0;
-        RawFifo_Get(&read_char);
-        UART_OutChar(read_char);
-        recovered_String[i] = read_char;
-        i++;
-    }
-}
-
-void printWord(void){
-    int end_flag = 1;
-    while(end_flag){
-        static int i = 0;
-        char read_char = 0;
-        RawFifo_Get(&read_char);
-        UART_OutChar(read_char);
-        recovered_Word[i] = read_char;
-        i++;
-        if(read_char == 0){
-            end_flag = 0;
-        }
-    }
-}
-
-void readUART(void){
-    UART_OutString("InString: ");
-    UART_InString(string,19);
-
-    // Store string in FIFO buffer
-    int j = 0;
-    while(string[j] != 0){
-        RawFifo_Put(string[j]);
-        j++;
-    }
-    RawFifo_Put(0);
-    read_words++;
-    OutCRLF();
-}
-
-void Transmitter_output_fifo_task(void) {
-    if (RawFifo_Size() > 0) {
-        char output_char = 0;
-        RawFifo_Get(&output_char);
-        Transmitter_set_outchar_vector((uint8_t) output_char);
-    }
-}
+extern uint8_t ready;
 
 //debug code
 int main(void){
+
   PLL_Init(Bus80MHz);       // set system clock to 50 MHz
+  DisableInterrupts();
   UART_Init();              // initialize UART
   UART_OutString(" UART0 is ready to use!"); OutCRLF();
+  ADC0_InitSWTriggerSeq3_Ch9(); //Use pe4 as input for mic
+  Timer0_Init();
+  Timer0A_SetPeriod(period);
+  ModFifo_Init();
+
+      //Now that we've sampled, we want to wait until conversion is finished
   EnableInterrupts();       // Enable interrupts
   RawFifo_Init();
 
-  // Initialize a timer that sends 1 packet to DAC.
-  Transmitter_Init(&Transmitter_output_fifo_task);
-
   while(1){
-      if(RawFifo_Size() < SIZE){
-          readUART();
-      } else {
-          UART_OutString("The UART Buffer is full, please wait \n");
+      if(ready){
+          if(times > 8){
+              //wait till we get 8 values, then dump them, and do it again?
+              printModBuffer();
+              times = 0;
+          }
       }
   }
-
+  //Init a hardware timer
+  // read value of completed adc conversion into a fifo
+  // construct into a character
+  // append all characters together
+  return 1;
 }
 
