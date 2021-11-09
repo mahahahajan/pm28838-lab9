@@ -4,15 +4,15 @@
 #include <stdio.h>
 #include <stdint.h>
 
-#include "../inc/tm4c123gh6pm.h"
+#include "inc/tm4c123gh6pm.h"
 
-//#include "../inc/Timer2.h"
+//#include inc/Timer2.h"
 #include "inc/Timer3.h"
 
 #include "AudioDriver.h"
 //#include "SwitchDriver.h"
 
-void Timer_Init(void);
+void Timer_Init(uint32_t);
 
 void Timer_HandleAlarm(void);
 

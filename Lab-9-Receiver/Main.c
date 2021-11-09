@@ -24,7 +24,7 @@ void OutCRLF(void){
 void printModBuffer(void){
     while(fifo_size != 0){
         //static int i = 0;
-        uint32_t read_val = 0;
+        uint8_t read_val = 0;
         ModFifo_Get(&read_val);
         fifo_size--;
         UART_OutUDec(read_val);
@@ -36,7 +36,7 @@ void printModBuffer(void){
 
 
 
-extern uint8_t ready;
+extern uint8_t ready_and_waiting;
 
 //debug code
 
@@ -46,45 +46,29 @@ int main(void){
 
   PLL_Init(Bus80MHz);       // set system clock to 50 MHz
   DisableInterrupts();
-
-
-  setDoneTask(&printModBuffer);
-  ADC0_InitSWTriggerSeq3_Ch9(); //Use pe4 as input for mic
   UART_Init();              // initialize UART
-  UART_OutString(" UART0 is ready to use!");
-  OutCRLF();
-
-  Timer0_Init();
-  Timer0A_SetPeriod(period);
-
-//  Timer0A_Enable();
+  UART_OutString(" UART0 is ready to use!"); OutCRLF();
+  EnableInterrupts();
+  DisableInterrupts();
+  Receiver_init(&printModBuffer);
+  Timer_Init(period);
   ModFifo_Init();
-
-
-
-      //Now that we've sampled, we want to wait until conversion is finished
   EnableInterrupts();       // Enable interrupts
 
-  while(1){
-        //IF VALUE < THRESHOLD -- > This is a zero, set ready to 1, start filling fifo
+  while(1) {
       WaitForInterrupt();
       /*
-      if(ready){
-//          printf("Test here ");
+      if(ready_and_waiting){
+          // printf("Test here ");
           if(times = 10){
               //wait till we get 8 values, then dump them, and do it again?
               printModBuffer();
               //decodeMessage();
               times = 0;
-              ready = 0;
+              ready_and_waiting = 0;
           }
       }
       */
   }
-  //Init a hardware timer
-  // read value of completed adc conversion into a fifo
-  // construct into a character
-  // append all characters together
-  return 1;
 }
 

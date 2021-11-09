@@ -5,8 +5,8 @@
 #include <stdint.h>
 #include <limits.h>
 
-#include "../inc/tm4c123gh6pm.h"
-#include "../inc/CortexM.h"
+#include "inc/tm4c123gh6pm.h"
+#include "inc/CortexM.h"
 
 
 

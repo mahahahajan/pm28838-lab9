@@ -91,9 +91,10 @@ void Timer1A_Handler(void){
 
 /* module external methods */
 
-void Timer_Init(void){
-//	Timer0_Init();
+void Timer_Init(uint32_t t1period){
+	Timer0_Init();
 //	Timer1_Init();
+    Timer0A_SetPeriod(t1period);
 }
 
 void Timer_InitTask2(void(*task2)(void), long period) {
