@@ -27,14 +27,14 @@ void Timer0A_Handler(void) {
 			}
 		} else if (value > ready_bit_high_threshold) {
 		    ready_and_active = 1;
-			counter = (COUNTER_RELOAD / COUNTER_RELOAD_DIV) + 10;
+			counter = (COUNTER_RELOAD / COUNTER_RELOAD_DIV); //+ 10;
 			bits = 0;
 			//times = 0;
 		}
 	} else counter--;
 }
 
-void decodeMessage(void) {
+void Receiver_decodeMessage(void) {
 	//use Fifo and construct message
 	printf("Test");
 }

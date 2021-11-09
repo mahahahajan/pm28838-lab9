@@ -15,10 +15,10 @@
 
 #define COUNTER_RELOAD 10000
 //#define COUNTER_RELOAD_DIV 100
-#define COUNTER_RELOAD_DIV 5
+#define COUNTER_RELOAD_DIV 100
 
-#define ready_bit_high_threshold 420
-#define data_bit_high_threshold ready_bit_high_threshold - 30
+#define ready_bit_high_threshold 130
+#define data_bit_high_threshold ready_bit_high_threshold - 10
 
 void Receiver_init(void (*task)(void));
 

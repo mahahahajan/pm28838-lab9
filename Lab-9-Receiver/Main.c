@@ -10,17 +10,16 @@ char recovered_String[SIZE];
 uint32_t period = 1100;
 int times = 0;
 volatile int fifo_size = 0;
+extern uint8_t ready_and_waiting;
 
-//---------------------OutCRLF---------------------
+
 // Output a CR,LF to UART to go to a new line
-// Input: none
-// Output: none
 void OutCRLF(void){
   UART_OutChar(CR);
   UART_OutChar(LF);
 }
 
-
+// Print out current FIFO
 void printModBuffer(void){
     while(fifo_size != 0){
         //static int i = 0;
@@ -33,14 +32,6 @@ void printModBuffer(void){
     }
     OutCRLF();
 }
-
-
-
-extern uint8_t ready_and_waiting;
-
-//debug code
-
-
 
 int main(void){
 
