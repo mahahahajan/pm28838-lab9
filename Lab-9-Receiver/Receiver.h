@@ -15,7 +15,7 @@
 
 #define COUNTER_RELOAD 10000
 //#define COUNTER_RELOAD_DIV 100
-#define COUNTER_RELOAD_DIV 100
+#define COUNTER_RELOAD_DIV 20
 
 #define ready_bit_high_threshold 130
 #define data_bit_high_threshold ready_bit_high_threshold - 10
