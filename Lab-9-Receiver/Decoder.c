@@ -5,17 +5,17 @@
 #include "../inc/UART0int.h"
 #include "../inc/FIFO.h"
 
-#define SIZE 1024
-#define SUCCESS 1
-#define FAIL 0
+//#define SIZE 1024
+//#define SUCCESS 1
+//#define FAIL 0
+//
+////AddPointerFifo(Mod, SIZE, uint32_t, SUCCESS, FAIL)
+////char recovered_String[SIZE];
 
-AddPointerFifo(Mod, SIZE, uint32_t, SUCCESS, FAIL)
-char recovered_String[SIZE];
 
-int times = 0;
 
 uint8_t ready = 1;
-
+extern uint8_t times;
 
 void Timer0A_Handler(void){
 

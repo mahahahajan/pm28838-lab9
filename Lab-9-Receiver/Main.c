@@ -48,7 +48,6 @@ int main(void){
 
       //Now that we've sampled, we want to wait until conversion is finished
   EnableInterrupts();       // Enable interrupts
-  RawFifo_Init();
 
   while(1){
       if(ready){
