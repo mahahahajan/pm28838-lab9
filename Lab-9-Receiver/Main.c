@@ -7,6 +7,7 @@
 AddPointerFifo(Mod, SIZE, uint32_t, SUCCESS, FAIL)
 char recovered_String[SIZE];
 
+uint32_t period = 2000000;
 int times = 0;
 
 
@@ -51,9 +52,10 @@ int main(void){
 
   while(1){
       if(ready){
-          if(times > 8){
+          if(times > 11){
               //wait till we get 8 values, then dump them, and do it again?
               printModBuffer();
+              decodeMessage();
               times = 0;
           }
       }
