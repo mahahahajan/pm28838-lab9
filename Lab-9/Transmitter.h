@@ -9,16 +9,17 @@
 #include "DAC.h"
 
 #define BUS 80000000
-#define SXTTH       BUS / 16
-#define HALF        8  * SXTTH
-
-#define DEFAULT_LENGTH HALF
+#define DEFAULT_LENGTH 20000
 
 #define BPM 120
 
 #define HIGH_FREQ 700
 
+#define DAC_OUT_STEADY 0
+
 void Transmitter_Init(void(*fifo_task)(void));
+
+int getParity(unsigned int n);
 
 void Transmitter_output_handler(void);
 
