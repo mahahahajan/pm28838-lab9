@@ -9,6 +9,7 @@ char recovered_String[SIZE];
 
 uint32_t period = 1100;
 int times = 0;
+volatile int fifo_size = 0;
 
 //---------------------OutCRLF---------------------
 // Output a CR,LF to UART to go to a new line
@@ -21,13 +22,14 @@ void OutCRLF(void){
 
 
 void printModBuffer(void){
-    while(ModFifo_Size() != 0){
-        static int i = 0;
+    while(fifo_size != 0){
+        //static int i = 0;
         uint32_t read_val = 0;
         ModFifo_Get(&read_val);
+        fifo_size--;
         UART_OutUDec(read_val);
-        recovered_String[i] = read_val;
-        i++;
+        //recovered_String[i] = read_val;
+        //i++;
     }
     OutCRLF();
 }
