@@ -60,8 +60,8 @@ void readUART(void){
         fifo_size++;
         j++;
     }
-    //RawFifo_Put(0);
-    //fifo_size++;
+    RawFifo_Put(0);
+    fifo_size++;
     read_words++;
     OutCRLF();
 }
