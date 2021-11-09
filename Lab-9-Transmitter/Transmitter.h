@@ -9,9 +9,11 @@
 #include "DAC.h"
 
 #define BUS 80000000
-#define DEFAULT_LENGTH 3000
+//#define DEFAULT_LENGTH 3000
+#define DEFAULT_LENGTH 10000
 
-#define HIGH_PERIOD 1600
+//#define HIGH_PERIOD 1600
+#define HIGH_PERIOD 1100
 
 #define DAC_OUT_LOW 0
 
