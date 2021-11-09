@@ -6,8 +6,8 @@
 
 #include "../inc/tm4c123gh6pm.h"
 
-#include "Timer2.h"
-#include "Timer3.h"
+//#include "../inc/Timer2.h"
+#include "inc/Timer3.h"
 
 #include "AudioDriver.h"
 //#include "SwitchDriver.h"
