@@ -74,7 +74,7 @@ void ADC0_InitSWTriggerSeq3_Ch9(void){
   ADC0_PC_R |= 0x1;               //    maximum speed is 125K samples/sec
   ADC0_SSPRI_R = 0x0123;          // 8) Sequencer 3 is highest priority
   ADC0_ACTSS_R &= ~0x0008;        // 9) disable sample sequencer 3
-  ADC0_EMUX_R &= (~0xF000) + 0x5000;         // 10) seq3 is now timer trigger (set bits 15-12 to timer)
+  ADC0_EMUX_R &= (~0xF000) ;         // 10) seq3 is now timer trigger (set bits 15-12 to timer)
   ADC0_SSMUX3_R &= ~0x000F;       // 11) clear SS3 field
   ADC0_SSMUX3_R += 9;             //    set channel
   ADC0_SSCTL3_R = 0x0006;         // 12) no TS0 D0, yes IE0 END0
