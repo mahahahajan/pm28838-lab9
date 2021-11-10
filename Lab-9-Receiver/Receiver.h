@@ -14,7 +14,6 @@
 
 
 #define COUNTER_RELOAD 10000
-//#define COUNTER_RELOAD_DIV 100
 #define COUNTER_RELOAD_DIV 10
 
 #define NUM_BITS 11
