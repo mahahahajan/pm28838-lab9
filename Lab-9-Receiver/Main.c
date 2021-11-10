@@ -4,7 +4,8 @@
 #define SUCCESS 1
 #define FAIL 0
 
-AddPointerFifo(Mod, SIZE, uint8_t, SUCCESS, FAIL)
+AddPointerFifo(Mod, SIZE, uint8_t, SUCCESS, FAIL);
+AddPointerFifo(Final, SIZE, uint8_t, SUCCESS, FAIL);
 char recovered_String[SIZE];
 
 uint32_t period = 1100;
@@ -32,6 +33,20 @@ void printModBuffer(void){
     }
     OutCRLF();
 }
+//
+//void printFinalBuffer(void){
+//    while(fifo_size != 0){
+//        //static int i = 0;
+//        uint8_t read_val = 0;
+//        FinalFifo_Get(&read_val);
+//        fifo_size--;
+//        UART_OutUDec(read_val);
+//        //recovered_String[i] = read_val;
+//        //i++;
+//    }
+//    OutCRLF();
+//}
+
 
 int main(void){
 
