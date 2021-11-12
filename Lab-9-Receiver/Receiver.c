@@ -27,8 +27,8 @@ void Timer0A_Handler(void) {
 			bits++;
 			if (bits == NUM_BITS * COUNTER_RELOAD_DIV) {
 			    ready_and_active = 0;
-//				doneTask();
-			    Receiver_decodeMessage();
+				doneTask();
+//			    Receiver_decodeMessage();
 			}
 		} else if (calibrating == 0){
             calibrating = 1;

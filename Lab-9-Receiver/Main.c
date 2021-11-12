@@ -56,7 +56,7 @@ int main(void){
   UART_OutString(" UART0 is ready to use!"); OutCRLF();
   EnableInterrupts();
   DisableInterrupts();
-  Receiver_init(&printModBuffer);
+  Receiver_init(&Receiver_decodeMessage);
   Timer_Init(period);
   ModFifo_Init();
   EnableInterrupts();       // Enable interrupts
