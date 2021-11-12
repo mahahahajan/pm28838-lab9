@@ -98,3 +98,16 @@ int main(void) {
 
 }
 
+void Input_main(){
+    PLL_Init(Bus80MHz);       // set system clock to 50 MHz
+    DisableInterrupts();
+    UART_Init();              // initialize UART
+    UART_OutString(" UART0 is ready to use!"); OutCRLF();
+    EnableInterrupts();       // Enable interrupts
+
+    //To test input, we want to input something and see that we stored it
+    UART_OutString("InString: ");
+    UART_InString(string,19);
+
+    UART_OutString(string);
+}
