@@ -94,3 +94,49 @@ void Receiver_init(void (*task)(void)) {
 	doneTask = task;
 	ADC0_InitSWTriggerSeq3_Ch9(); //Use pe4 as input for mic
 }
+//
+//Stuff for test main
+uint8_t testNums[] = {1,0,1,1,0,0,1,1,0,0, 1,0,0,0,0,0,0,0,0,1,0,0,1,1,0,0,1,0,0,0,
+                  1,0,0,1,1,0,0,1,0,1,
+                  0,0,0,0,0,0,0,0,0,0,
+                  1,0,0,1,1,0,0,1,0,1,
+                  0,0,0,0,0,0,0,0,0,0,
+                  0,0,0,0,0,0,0,0,0,0,
+                  0,0,0,0,0,0,0,0,0,0,
+                  0,1,0,0,1,1,0,0,1,1,
+                  0,0,1,0,0,1,1,0,0,1};
+
+//Test Decoder to see if decode process works (Test Main 11)
+ void Decoder_main() {
+     ModFifo_Init();
+     int i = 0;
+     //Put our test values into the fifo
+     for(i = 0; i < 110; i++){
+         ModFifo_Put(testNums[i]);
+         fifo_size++;
+     }
+     //Run decoder task
+     Receiver_decodeMessage();
+     //Verify that it was properly debugged via UART
+ }
+
+ //Test ADC -> Decoder and make sure data is streamed properly (Test Main 10)
+ void DecoderStreaming_main(){
+     ModFifo_Init();
+     //This is to test our fifo (put stuff in and get stuff out is our streaming?)
+     int i = 0;
+     //Put our test values into the fifo
+     for(i = 0; i < 110; i++){
+         ModFifo_Put(testNums[i]);
+         fifo_size++;
+     }
+     uint8_t val = 0;
+     for(i = 0; i < fifo_size; i++){
+         ModFifo_Get(&val);
+         UART_OutString("Fifo In was %s, Fifo out was %s");
+         UART_OutChar(testNums[i]);
+         UART_OutChar('\t');
+         UART_OutChar(val);
+     }
+ }
+
