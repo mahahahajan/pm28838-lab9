@@ -29,6 +29,7 @@ void Transmitter_Init(void(*fifo_task)(void)) {
     outchar_frame_bit = 0;
     outchar_frame = 0;
     Timer_InitTask2(&Transmitter_output_handler, HIGH_PERIOD);
+    //Timer_InitTask2(&Transmitter_wave_test, HIGH_PERIOD);
 }
 
 // parity utility function
@@ -71,4 +72,10 @@ void Transmitter_set_outchar_vector(uint8_t vector) {
     outchar_frame = 0;
     outchar_frame = (1 << 10) | (vector << 2) | (parity_bit << 1) | (1 << 0);
     outchar_frame_ptr = 11;
+}
+
+void Transmitter_wave_test(void) {
+    DAC_Out(SinWave[I]);
+    I++;
+    if (I >= 64) I = 0;
 }

@@ -25,4 +25,6 @@ void Transmitter_output_handler(void);
 
 void Transmitter_set_outchar_vector(uint8_t vector);
 
+void Transmitter_wave_test(void);
+
 #endif

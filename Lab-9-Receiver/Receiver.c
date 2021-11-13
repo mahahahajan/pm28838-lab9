@@ -16,7 +16,7 @@ void Timer0A_Handler(void) {
 	if (counter == 0) {
 		uint32_t value = ADC0_InSeq3();
 		if (ready_and_active) {
-			if (value > threshold + 250) {
+			if (value > threshold + 10) {
 				ModFifo_Put(1);
 			} else {
 				ModFifo_Put(0);
@@ -36,8 +36,8 @@ void Timer0A_Handler(void) {
         } else if (calibrating == 1){
             calibrating = 2;
             uint32_t avg = sum / COUNTER_RELOAD;
-            threshold = avg + 30;
-        } else if (value > (threshold + 250) /*|| value < (threshold - 50) */) {
+            threshold = avg + 20;
+        } else if (value > (threshold + 20) /*|| value < (threshold - 50) */) {
 		    ready_and_active = 1;
 			counter = COUNTER_RELOAD / COUNTER_RELOAD_DIV + 10;//+ COUNTER_RELOAD / 4;
 			bits = 0;
