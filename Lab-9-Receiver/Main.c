@@ -56,7 +56,7 @@ int main(void){
   UART_OutString(" UART0 is ready to use!"); OutCRLF();
   EnableInterrupts();
   DisableInterrupts();
-  Receiver_init(&printModBuffer);
+  Receiver_init(&Receiver_decodeMessage);
   Timer_Init(period);
   ModFifo_Init();
   EnableInterrupts();       // Enable interrupts
@@ -77,4 +77,20 @@ int main(void){
       */
   }
 }
+
+//Test to check ADC software
+//Displays values that the ADC and displays them in 1s and 0s
+void ADCTest_main(){
+    PLL_Init(Bus80MHz);       // set system clock to 50 MHz
+    DisableInterrupts();
+    UART_Init();              // initialize UART
+    UART_OutString(" UART0 is ready to use!"); OutCRLF();
+    EnableInterrupts();
+    DisableInterrupts();
+    Receiver_init(&printModBuffer);
+    Timer_Init(period);
+    ModFifo_Init();
+    EnableInterrupts();       // Enable interrupts
+}
+
 
