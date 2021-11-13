@@ -17,7 +17,7 @@
 
 #define DAC_OUT_LOW 0
 
-void Transmitter_Init(void(*fifo_task)(void));
+void Transmitter_Init(void(*fifo_task)(void), int test);
 
 int getParity(unsigned int n);
 
@@ -25,6 +25,8 @@ void Transmitter_output_handler(void);
 
 void Transmitter_set_outchar_vector(uint8_t vector);
 
-void Transmitter_wave_test(void);
+void Transmitter_play_wave(void);
+
+void Transmitter_Streaming_TestMain(void);
 
 #endif

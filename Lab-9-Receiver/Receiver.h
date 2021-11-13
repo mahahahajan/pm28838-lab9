@@ -24,6 +24,9 @@
 void Receiver_init(void (*task)(void));
 void Receiver_decodeMessage(void);
 
+void Decoder_TestMain(void);
+void DecoderStreaming_TestMain(void);
+
 int ModFifo_Put(uint8_t);
 int ModFifo_Get(uint8_t*);
 

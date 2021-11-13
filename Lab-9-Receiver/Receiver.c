@@ -88,31 +88,36 @@ void Receiver_decodeMessage(void) {
 	vector = (vector & (0x3FC)) >> 2;
 	char tempChar = (char) vector;
 	UART_OutChar(tempChar);
+
 }
 
 void Receiver_init(void (*task)(void)) {
 	doneTask = task;
 	ADC0_InitSWTriggerSeq3_Ch9(); //Use pe4 as input for mic
 }
-//
-//Stuff for test main
-uint8_t testNums[] = {1,0,1,1,0,0,1,1,0,0, 1,0,0,0,0,0,0,0,0,1,0,0,1,1,0,0,1,0,0,0,
-                  1,0,0,1,1,0,0,1,0,1,
-                  0,0,0,0,0,0,0,0,0,0,
-                  1,0,0,1,1,0,0,1,0,1,
-                  0,0,0,0,0,0,0,0,0,0,
-                  0,0,0,0,0,0,0,0,0,0,
-                  0,0,0,0,0,0,0,0,0,0,
-                  0,1,0,0,1,1,0,0,1,1,
-                  0,0,1,0,0,1,1,0,0,1};
+
+// Stuff for test main
+// value of ASCII char 'h' represented as a noisy sampled bit vector
+// 'h'=104=b01101000 --> 10110100011 (frame=start_bit+ascii_vector+odd_parity+end_bit)
+uint8_t hCharSampleValues[] = {1,0,1,1,0,0,1,1,0,0,  // 1
+                      1,0,0,0,0,0,0,0,0,1,  // 0
+                      0,0,1,1,0,0,1,0,0,0,  // 1
+                      1,0,0,1,1,0,0,1,0,1,  // 1
+                      0,0,0,0,0,0,0,0,0,0,  // 0
+                      1,0,0,1,1,0,0,1,0,1,  // 1
+                      0,0,0,0,0,0,0,0,0,0,  // 0
+                      0,0,0,0,0,0,0,0,0,0,  // 0
+                      0,0,0,0,0,0,0,0,0,0,  // 0
+                      0,1,0,0,1,1,0,0,1,1,  // 1
+                      0,0,1,0,0,1,1,0,0,1 };// 1
 
 //Test Decoder to see if decode process works (Test Main 11)
- void Decoder_main() {
+void Decoder_TestMain(void) {
      ModFifo_Init();
      int i = 0;
      //Put our test values into the fifo
      for(i = 0; i < 110; i++){
-         ModFifo_Put(testNums[i]);
+         ModFifo_Put(hCharSampleValues[i]);
          fifo_size++;
      }
      //Run decoder task
@@ -121,22 +126,24 @@ uint8_t testNums[] = {1,0,1,1,0,0,1,1,0,0, 1,0,0,0,0,0,0,0,0,1,0,0,1,1,0,0,1,0,0
  }
 
  //Test ADC -> Decoder and make sure data is streamed properly (Test Main 10)
- void DecoderStreaming_main(){
+void DecoderStreaming_TestMain(void){
      ModFifo_Init();
      //This is to test our fifo (put stuff in and get stuff out is our streaming?)
      int i = 0;
      //Put our test values into the fifo
      for(i = 0; i < 110; i++){
-         ModFifo_Put(testNums[i]);
+         ModFifo_Put(hCharSampleValues[i]);
          fifo_size++;
      }
      uint8_t val = 0;
      for(i = 0; i < fifo_size; i++){
          ModFifo_Get(&val);
-         UART_OutString("Fifo In was %s, Fifo out was %s");
-         UART_OutChar(testNums[i]);
-         UART_OutChar('\t');
-         UART_OutChar(val);
+         UART_OutString("Fifo In was ");
+         UART_OutUDec(hCharSampleValues[i]);
+         UART_OutString(", Fifo out was ");
+         UART_OutUDec(val);
+         UART_OutChar('\r');
+         UART_OutChar('\n');
      }
  }
 
